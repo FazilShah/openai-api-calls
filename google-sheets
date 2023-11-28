@@ -1,6 +1,6 @@
 function get_meta_description(content){
 
-  const api_key = "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";
+  const api_key = "your_api_key";
   prompt = "create a concise meta description of the text below in less than 160 characters and pitch it for sale";
   const apiCall =(prompt) =>{
 
@@ -43,7 +43,7 @@ function get_meta_description(content){
 
 function get_seo_title(content){
 
-  const api_key = "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";
+  const api_key = "your_api_key";
   prompt = "Give me some SEO titles for the below text: \"A sumptuous light-weight cashmere square scarf with itajime shibori \ngeometric tile-like design. Available in intense blue/black or a soft \nleaf-like collage of forest green, beige and cream.  Color black, blue, multicolor Composition 100% Cashmere Exact Color \nblue/black Handwoven or Handspun Handwoven Product Tag Tile Itajime Size \nSquare Scarf – 90 x 90 cm Technique Shibori Weave Satin \"\n\nHere is one example: Light Weight Cashmere Scarf | Blue & Black | Me&K\nAnother Example\" Sumptuous Light-Weight Cashmere Scarf | Available in Blue & Black | Me&K\nAdditional Examples: \nHandwoven Cashmere Scarf | Geometric Tile Design | Me&K\nShibori Weave Satin Scarf | Forest Green, Beige & Cream | Me&K\nItajime Shibori Square Scarf | 100% Cashmere | Me&K";
   const apiCall =(prompt) =>{
 
