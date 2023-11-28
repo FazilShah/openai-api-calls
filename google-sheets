@@ -1,0 +1,101 @@
+function get_meta_description(content){
+
+  const api_key = "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";
+  prompt = "create a concise meta description of the text below in less than 160 characters and pitch it for sale";
+  const apiCall =(prompt) =>{
+
+
+    const parameters = {
+
+      'prompt':prompt + content,
+      'temperature' :0.7,
+      'max_tokens' : 256,
+      'top_p':1,
+      'frequency_penalty':0,
+      'presence_penalty':0
+    };
+
+    const options = {
+
+      'method':'post',
+      'contentType':'application/json',
+      'payload':JSON.stringify(parameters),
+      'headers':{
+        Authorization:'Bearer '+ api_key,
+      },
+
+
+    };
+
+    const response = UrlFetchApp.fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', options,);
+    return JSON.parse(response.getContentText())['choices'][0]['text'];
+
+  }
+
+   const meta_desc = apiCall(prompt);
+   return meta_desc;
+  
+
+
+}
+
+
+
+function get_seo_title(content){
+
+  const api_key = "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";
+  prompt = "Give me some SEO titles for the below text: \"A sumptuous light-weight cashmere square scarf with itajime shibori \ngeometric tile-like design. Available in intense blue/black or a soft \nleaf-like collage of forest green, beige and cream.  Color black, blue, multicolor Composition 100% Cashmere Exact Color \nblue/black Handwoven or Handspun Handwoven Product Tag Tile Itajime Size \nSquare Scarf – 90 x 90 cm Technique Shibori Weave Satin \"\n\nHere is one example: Light Weight Cashmere Scarf | Blue & Black | Me&K\nAnother Example\" Sumptuous Light-Weight Cashmere Scarf | Available in Blue & Black | Me&K\nAdditional Examples: \nHandwoven Cashmere Scarf | Geometric Tile Design | Me&K\nShibori Weave Satin Scarf | Forest Green, Beige & Cream | Me&K\nItajime Shibori Square Scarf | 100% Cashmere | Me&K";
+  const apiCall =(prompt) =>{
+
+
+    const parameters = {
+
+      'prompt':prompt + content,
+      'temperature' :0.7,
+      'max_tokens' : 256,
+      'top_p':1,
+      'frequency_penalty':0,
+      'presence_penalty':0
+    };
+
+    const options = {
+
+      'method':'post',
+      'contentType':'application/json',
+      'payload':JSON.stringify(parameters),
+      'headers':{
+        Authorization:'Bearer '+ api_key,
+      },
+
+
+    };
+
+    const response = UrlFetchApp.fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', options,);
+    return JSON.parse(response.getContentText())['choices'][0]['text'];
+
+  }
+
+   const seo_title = apiCall(prompt);
+   return seo_title;
+  
+
+
+}
+  
+function update(){
+
+  const ss = SpreadsheetApp.getActive().getActiveSheet()
+  const las_row = ss.getLastRow();
+
+  for(var i = 2; i<las_row+1;i++){
+    var content = ss.getRange(i, 2).getValue();
+    var meta = ss.getRange(i, 3);
+    var title = ss.getRange(i, 4);
+    var ai_meta = get_meta_description(content);
+    var ai_title = get_seo_title(content);
+    meta.setValue(ai_meta);
+    title.setValue(ai_title)
+  }
+  
+}
+
